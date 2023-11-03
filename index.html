@@ -20,7 +20,7 @@
         --color-Two:rgb(42, 87, 97);
         --color-Thre:rgb(249, 123, 87);
         --color-Four:rgb(78, 42, 88);
-        --color-Five:rgb(29, 194, 164); 
+        --color-Five:rgb(29, 194, 125); 
         --color-Six:rgb(194, 29, 29); 
 
         /* Main Colors */
@@ -28,7 +28,7 @@
         --color-Two:42, 87, 97;
         --color-Thre:249, 123, 87;
         --color-Four:78, 42, 88;
-        --color-Five:29, 194, 164; 
+        --color-Five:29, 194, 125; 
         --color-Six:194, 29, 29; 
     
          /* Light Mode */
@@ -252,137 +252,83 @@
                 margin-top: 25px;
                 margin-left: auto;
                 margin-right: auto;
-                height:150px;
+                height:fit-content;
+                /* min-height: 275px; */
                 background:rgb(var(--background-Color));
                 display:flex;
                 justify-content:center;
                 align-items:center;
                 border-top-right-radius: 50px;
                 border-top-left-radius: 50px;
+                padding-bottom: 25px;
                 font-weight: 900;
                 color:rgb(var(--other-TextColor));
+                position:relative;
             }
 
-        /* Add Transaction Page */
-            #add-Transaction-Page {
-                width:100vw;
-                height:auto;
-                background:rgb(var(--background-Color));
-                position:fixed;
-                top:0px;
-                bottom:0px;
-                left:0xp;
-                z-index:-1;
-                opacity:0;
-            }
-
-            #close-Icon {
-                width:25px;
-                height:25px;
-                background:rgb(var(--second-BackgroundColor));
-                padding:12px;
-                border-radius: 100%;
-                position:absolute;
-                top:25px;
-                right:15px;
-                fill:rgb(var(--other-TextColor));
-            }
-
-            .input-Container {
-                width:calc(100vw - 60px);
-                padding:15px;
-                position:absolute;
-                left:50%;
-                top:100px;
-                transform:translate(-50%);
-                border-radius: 15px;
-                background:rgb(var(--second-BackgroundColor));
-                color:rgb(var(--other-TextColor));
-                font-size: 25px;
-                font-weight: 900;
-                border: none;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                /* border: 0px solid rgb(var(--other-TextColor), 0.5); */
-            }
-
-            #profit {
-                overflow-x: scroll;
-                color:rgb(var(--other-TextColor));
-                font-size: 25px;
-                font-weight: 900;
-                background:transparent;
-                border:none;
-                margin-top: 3px;
-            }
-
-            #profit::placeholder {
-                color:rgb(var(--other-TextColor));
-            }
-
-            #options {
-                font-weight: 900;
-                color:rgb(var(--other-TextColor));
-                font-size: 15px;
-                position:absolute;
-                top:25px;
-                left:50%;
-                transform:translate(-50%);
-                background:rgb(var(--second-BackgroundColor));
-                padding:15px 15px;
-                width:fit-content;
-                border-radius: 15px;
-                text-align:center;
-                display:flex;
-                gap:10px;
-            }
-
-            #income {
-                height:fit-content;
-                width:100px;
-            }
-
-            #cost {
-                height:fit-content;
-                width:100px;
-            }
-
-            #selecter.income {
-                width:calc(50% + 10px);
-                height:100%;
-                position:absolute;
-                border-radius: 15px;
-                left:0px;
-                top:0px;
-                background:rgb(var(--main-TextColor), 0.1);
-                transition: .5s;
-            }
-
-            #selecter.cost {
-                width:calc(50% + 10px);
-                height:100%;
-                position:absolute;
-                border-radius: 15px;
-                right:0px;
-                top:0px;
-                background:rgb(var(--main-TextColor), 0.1);
-                transition: .5s;
-            }
-
-            #complete-Transaction-Button {
-                width:calc(100vw - 100px);
-                font-weight: 900;
-                color: rgb(var(--background-Color));
+        /* Transactions Section */
+            #transactions-Title {
                 font-size: 20px;
-                position:fixed;
-                bottom:25px;
+                height:fit-content;
+                color:rgb(var(--main-TextColor));
+                font-weight: 800;
+                position:absolute;
+                top:25px;
+                left:25px;
+            }
+
+            #transactions {
+                height:185px;
+                margin-top: 60px;
+            }
+
+            #no-Transactions {
+                font-weight: 700;
+                position:absolute;
+                margin-top: 25px;
+                top:40px;
                 left:50%;
                 transform:translate(-50%);
-                background: rgb(var(--main-TextColor), 0.90);
-                padding:15px 15px;
+                width:calc(100vw - 50px);
+                height:175px;
                 border-radius: 15px;
-                text-align:center;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                background:rgb(var(--second-BackgroundColor));
+            }
+
+            .transaction-Container {
+                position:relative;
+                height:fit-content;
+                min-height: 75px;
+                background:rgb(var(--second-BackgroundColor));
+                width:calc(100vw - 80px);
+                padding:10px 15px;
+                border-radius: 15px;
+                margin-top: 15px;
+            }
+
+            .date {
+                position:absolute;
+                top:15px;
+                left:15px;
+                font-size: 15px;
+                font-weight:900;
+            }
+
+            .price-Change {
+                position:absolute;
+                top:35px;
+                font-size: 35px;
+            }
+
+            .up {
+                color:rgb(var(--color-Five));
+            }
+
+            .down {
+                color:rgb(var(--color-Six));
             }
     }
 
@@ -452,24 +398,20 @@
                 </div>
             </div>
         </div>
-        <div id="add-Transaction-Container" onclick="openAddTransaction()">
-            Add Transaction +
+        <div id="add-Transaction-Container">
+            <div id="transactions-Title">Transactions</div>
+            <div id="transactions">
+                <div id="no-Transactions">No Transactions</div>
+                <!-- <div class="transaction-Container">
+                    <div class="date">Nov 1 2023</div>
+                    <div class="price-Change up">+$1,253.34</div>
+                </div>
+                <div class="transaction-Container">
+                    <div class="date">Oct 29 2023</div>
+                    <div class="price-Change down">-$245.35</div>
+                </div> -->
+            </div>
         </div>
-    </div>
-    <div id="add-Transaction-Page">
-        <div id="options">
-            <div id="selecter" class="income"></div>
-            <div id="income" onclick="selectIncome()">Income</div>
-            <div id="cost" onclick="selectCost()">Cost</div>
-        </div>
-        <svg id="close-Icon" onclick="closeAddTransaction()" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-        </svg>
-        <div class="input-Container">
-            <input id="profit" type="price" placeholder="$0.00" oninput="updateWidth()">
-        </div>
-
-        <div id="complete-Transaction-Button" onclick="updateBankInfo()">Complete Transaction</div>
     </div>
     <div id="top-Bar">
         <div id="title">Dashboard</div>
@@ -571,10 +513,6 @@
                 if (snapshot.exists()){
                     data[0] = Number(snapshot.val().totalIncome)
                 }
-
-                setTimeout(function() {
-                    infoLoaded()
-                }, 1000)
             })
         }
 
@@ -724,152 +662,26 @@
         }
     </script>
 
-    <!-- Open Transaction, Close Transaction, Textbox updateWidth() function And Add Transaction Functions -->
+    <!-- Transaction Info -->
     <script defer>
-        var income = true
-
-        function selectIncome() {
-            if(!income) {
-                document.getElementById("selecter").classList.remove("cost")
-                document.getElementById("selecter").classList.add("income")
-                income = true
-            }
-        }
-
-        function selectCost() {
-            if(income) {
-                document.getElementById("selecter").classList.remove("income")
-                document.getElementById("selecter").classList.add("cost")
-                income = false
-            }
-        }
-
-        function openAddTransaction() {
-            document.querySelector("body").style.transition = ".5s"
-            document.querySelector("body").style.opacity = "0"
+        firebase.database().ref("Transactions").once('value', function(snapshot) {
             
-            setTimeout(function() {
-                document.getElementById("top-Bar").style.opacity = "0"
-                document.getElementById("main-Middle-Container").style.opacity = "0"
-                document.querySelector("body").style.transition = ".5s"
-                document.querySelector("body").style.opacity = "1"
-                document.getElementById("add-Transaction-Page").style.zIndex = "100"
-                document.getElementById("add-Transaction-Page").style.opacity = "1"
-            }, 500)
-        }
-
-        function closeAddTransaction() {
-            document.querySelector("body").style.transition = ".5s"
-            document.querySelector("body").style.opacity = "0"
-            
-            setTimeout(function() {
-                document.getElementById("top-Bar").style.opacity = "1"
-                document.getElementById("main-Middle-Container").style.opacity = "1"
-                document.querySelector("body").style.transition = ".5s"
-                document.querySelector("body").style.opacity = "1"
-                document.getElementById("add-Transaction-Page").style.zIndex = "-1"
-                document.getElementById("add-Transaction-Page").style.opacity = "0"
-            }, 500)
-        }
-
-        function updateWidth() {
-            var inputBox = document.getElementById("profit")
-            var value = inputBox.value
-            console.log(value.slice(0,1))
-            if(value == "") {
-
-            } else if(value.slice(0,1) == "$" && value.slice(1,2) == "") {
-                inputBox.value = ""
-            } else if(value.slice(0,1) != "$") {
-                inputBox.value = "$" + value
+            if(snapshot.exists()) {
+                document.getElementById("no-Transactions").style.display = "none"
+                document.getElementById("transactions").style.height = "fit-content"
             }
-        }
-
-        function updateBankInfo() {
-            var formatRef = '/^-?\d+(\.\d+)?$/'
-            var inputNum = document.getElementById("profit").value
-            inputNum = inputNum.slice(1, inputNum.length)
-            console.log(Number(inputNum))
-
-            if (/^-?\d+(\.\d+)?$/.test(Number(inputNum))) {
-                if(income) {
-                    totalIncome = Number(lifetimeInfo.totalIncome) + Number(inputNum)
-                    lifetimeInfo.totalIncome = totalIncome
-
-                    lifetimeInfo.profit = lifetimeInfo.totalIncome - lifetimeInfo.gasCost
-                    
-                    totalIncome = Number(monthInfo.totalIncome) + Number(inputNum)
-                    monthInfo.totalIncome = totalIncome
-
-                    monthInfo.profit = monthInfo.totalIncome - monthInfo.gasCost
-
-                    firebase.database().ref("MoneyInfo/").update({
-                        "totalIncome":lifetimeInfo.totalIncome,
-                        "profit": lifetimeInfo.profit
-                    })
-
-                    firebase.database().ref("Months/" + month).update({
-                        "totalIncome":monthInfo.totalIncome,
-                        "profit": monthInfo.profit
-                    })
-
-                    document.querySelector("body").style.transition = ".5s"
-                    document.querySelector("body").style.opacity = "0"
-
-                    setTimeout(function() {
-                        window.scrollTo(0, 0);
-                        document.getElementById("profit").value = ""
-                        document.getElementById("top-Bar").style.opacity = "1"
-                        document.getElementById("main-Middle-Container").style.opacity = "1"
-                        document.getElementById("add-Transaction-Page").style.zIndex = "-1"
-                        document.getElementById("add-Transaction-Page").style.opacity = "0"
-                        getInfoAndFormat()
-                    }, 500)
-                } else {
-                    totalCost = Number(lifetimeInfo.gasCost) + Number(inputNum)
-                    lifetimeInfo.gasCost = totalCost
-
-                    lifetimeInfo.profit = lifetimeInfo.totalIncome - lifetimeInfo.gasCost
-                    
-                    totalCost = Number(monthInfo.gasCost) + Number(inputNum)
-                    monthInfo.gasCost = totalCost
-
-                    monthInfo.profit = monthInfo.totalIncome - monthInfo.gasCost
-
-                    firebase.database().ref("MoneyInfo/").update({
-                        "gasCost":lifetimeInfo.gasCost,
-                        "profit": lifetimeInfo.profit
-                    })
-
-                    firebase.database().ref("Months/" + month).update({
-                        "gasCost":lifetimeInfo.gasCost,
-                        "profit": monthInfo.profit
-                    })
-
-                    document.querySelector("body").style.transition = ".5s"
-                    document.querySelector("body").style.opacity = "0"
-
-                    setTimeout(function() {
-                        window.scrollTo(0, 0);
-                        document.getElementById("profit").value = ""
-                        document.getElementById("top-Bar").style.opacity = "1"
-                        document.getElementById("main-Middle-Container").style.opacity = "1"
-                        document.getElementById("add-Transaction-Page").style.zIndex = "-1"
-                        document.getElementById("add-Transaction-Page").style.opacity = "0"
-                        getInfoAndFormat()
-                    }, 500)
+            
+            snapshot.forEach(function(child) {
+                console.log(child.val().priceChange, child.val().isUp)
+                if(child.val().isUp) {                
+                    document.getElementById("transactions").innerHTML += '<div class="transaction-Container"><div class="date">' + child.val().dateFormatted + '</div><div class="price-Change up">+' + configureNum(Number(child.val().priceChange)) + '</div></div>'
                 }
-            } else {
-                alert("Error")
-            }
-        }
+            })
 
-        updateWidth()
-    </script>
-
-    <!--  -->
-    <script defer>
-
+            setTimeout(function() {
+                infoLoaded()
+            }, 1000)
+        })
     </script>
 </body>
 </html>
