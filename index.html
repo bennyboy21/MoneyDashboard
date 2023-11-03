@@ -278,6 +278,8 @@
             }
 
             #transactions {
+                display:flex;
+                flex-direction: column-reverse;
                 height:185px;
                 margin-top: 60px;
             }
@@ -675,6 +677,8 @@
                 console.log(child.val().priceChange, child.val().isUp)
                 if(child.val().isUp) {                
                     document.getElementById("transactions").innerHTML += '<div class="transaction-Container"><div class="date">' + child.val().dateFormatted + '</div><div class="price-Change up">+' + configureNum(Number(child.val().priceChange)) + '</div></div>'
+                } else {
+                    document.getElementById("transactions").innerHTML += '<div class="transaction-Container"><div class="date">' + child.val().dateFormatted + '</div><div class="price-Change down">-' + configureNum(Number(child.val().priceChange)) + '</div></div>'
                 }
             })
 
