@@ -105,6 +105,7 @@
             top:80px;
             left:0px;
             background:rgb(var(--second-BackgroundColor));
+            transition: .5s;
         }
 
         /* Main Purple Container */
@@ -332,6 +333,59 @@
             .down {
                 color:rgb(var(--color-Six));
             }
+
+        /* New Transaction Notification */
+            #new-Transaction {
+                width:100vw;
+                text-align:center;
+                height:25px;
+                position:fixed;
+                top:80px;
+                left:50%;
+                transform:translate(-50%);
+                font-size:20px;
+                z-index: 10;
+                text-overflow: hidden;
+                font-weight: 800;
+                padding:10px 0px;
+                color:rgb(var(--other-TextColor));
+                background:rgb(var(--second-BackgroundColor));
+                /* border-radius: 15px; */
+                box-shadow: 0px 8px 10px 2px rgba(0, 0, 0, 0.1);
+                opacity: 0;
+                transition: .5s;
+            }
+
+            #new-Transaction.show {
+                width:100vw;
+                text-align:center;
+                height:25px;
+                position:fixed;
+                top:80px;
+                left:50%;
+                transform:translate(-50%);
+                font-size:20px;
+                z-index: 10;
+                text-overflow: hidden;
+                font-weight: 800;
+                padding:10px 0px;
+                color:rgb(var(--other-TextColor));
+                background:rgb(var(--second-BackgroundColor));
+                /* border-radius: 15px; */
+                box-shadow: 0px 8px 10px 2px rgba(0, 0, 0, 0.1);
+                opacity: 1;
+                transition: .5s;
+            }
+
+            #refresh-Icon {
+                width:20px;
+                height:20px;
+                fill:rgb(var(--other-TextColor));
+                position:absolute;
+                top:50%;
+                right:25px;
+                transform:translate(0, -50%);
+            }
     }
 
     @media (min-width:500px) {
@@ -420,6 +474,14 @@
         <div id="money-In-Account">$0.00</div>
     </div>
 
+    <div id="new-Transaction" onclick="window.location.reload()">
+        New Transaction
+
+        <svg id="refresh-Icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+            <path d="M476-126q-147 0-250.5-103.5T122-480q0-147 103.5-250.5T476-834q78 0 147.5 31.5T742-711v-123h96v329H508v-95h162q-32-50-83-79t-111-29q-95 0-161.5 66.5T248-480q0 95 66.5 161.5T476-252q71 0 129.5-41T690-400h131q-29 120-125 197t-220 77Z"/>
+        </svg>
+    </div>
+
     <!-- Get Info And Format -->
     <script defer>
         const firebaseConfig = {
@@ -498,41 +560,40 @@
                     monthInfo.gasCost = snapshot.val().gasCost
                     monthInfo.profit = snapshot.val().profit
 
-                    document.getElementById("amount-Made-This-Month").innerText = configureNum2(snapshot.val().totalIncome)
-                    data[2] = Number(snapshot.val().totalIncome)
-                    console.log(snapshot.val().totalIncome)
+                    document.getElementById("amount-Made-This-Month").innerText = configureNum (snapshot.val().profit)
+                    data[2] = Number(snapshot.val().profit)
                 }
             })
 
             firebase.database().ref("Months/" + month2).once("value", function(snapshot){
                 if (snapshot.exists()){
-                    document.getElementById("amount-Made-Last-Month").innerText = configureNum2(snapshot.val().totalIncome)
-                    data[1] = Number(snapshot.val().totalIncome)
+                    document.getElementById("amount-Made-Last-Month").innerText = configureNum (snapshot.val().profit)
+                    data[1] = Number(snapshot.val().profit)
                 }
             })
 
             firebase.database().ref("Months/" + month3).once("value", function(snapshot){
                 if (snapshot.exists()){
-                    data[0] = Number(snapshot.val().totalIncome)
+                    data[0] = Number(snapshot.val().profit)
                 }
             })
         }
 
         function configureNum(num) {
-            if(num < 100000) {
-                return USD.format(num)
-            } else {
-                return USD2.format(num)
-            }
-        }
-
-        function configureNum2(num) {
             if(num < 10000) {
                 return USD.format(num)
             } else {
                 return USD2.format(num)
             }
         }
+
+        // function configureNum (num) {
+        //     if(num < 10000) {
+        //         return USD.format(num)
+        //     } else {
+        //         return USD2.format(num)
+        //     }
+        // }
 
         function loadBody() {
             document.querySelector("body").style.transition = ".5s"
@@ -666,8 +727,11 @@
 
     <!-- Transaction Info -->
     <script defer>
+        var childNum = 0
+        var loopCount = 0
+
         firebase.database().ref("Transactions").once('value', function(snapshot) {
-            
+            childNum = snapshot.numChildren()
             if(snapshot.exists()) {
                 document.getElementById("no-Transactions").style.display = "none"
                 document.getElementById("transactions").style.height = "fit-content"
@@ -685,6 +749,14 @@
             setTimeout(function() {
                 infoLoaded()
             }, 1000)
+        }).then(function() {
+            firebase.database().ref("Transactions").on("child_added", function() {
+                if(loopCount >= childNum) {
+                    document.getElementById("main-Middle-Container").style.top = "120px"
+                    document.getElementById("new-Transaction").classList.add("show")
+                }
+                loopCount += 1
+            })
         })
     </script>
 </body>
